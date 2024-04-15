@@ -2,7 +2,9 @@
 
 *By* **Mark Nguyen**
 
-The followings are based on forked git repo on
+The followings are based on forked git repo on https://github.com/aesclever/tiedie
+
+Original source: https://github.com/iot-onboarding/tiedie 
 
 
 ## Setting up `docker compose`
