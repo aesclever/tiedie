@@ -99,11 +99,22 @@ markn@markn-Lenovo-G50-45:~/devel/TIEDIE/tiedie/gateway$ sudo docker compose up 
 [sudo] password for markn: 
 
 WARN[0000] /home/markn/devel/TIEDIE/tiedie/gateway/docker-compose.yml: `version` is obsolete 
+WARN[0000] /home/markn/devel/TIEDIE/tiedie/gateway/docker-compose.yml: `version` is obsolete 
 [+] Running 2/0
  ✔ Container gateway-postgres-1   Running                                                                                           0.0s 
  ✔ Container gateway-mosquitto-1  Running                                                                                           0.0s 
 Attaching to mosquitto-1, postgres-1
 mosquitto-1  | 1713413182: Saving in-memory database to /var/lib/mosquitto/mosquitto.db.
+mosquitto-1  | 1713413989: Client auto-0434420C-9B9D-A19D-C283-2A4483B313FC closed its connection.
+mosquitto-1  | 1713414725: New connection from 172.18.0.1:40236 on port 8883.
+mosquitto-1  | 1713414725: New client connected from 172.18.0.1:40236 as auto-F99F8616-2138-F9AC-C399-C0CA51B2E5E0 (p2, c1, k60, u'admin').
+mosquitto-1  | 1713414726: Client auto-F99F8616-2138-F9AC-C399-C0CA51B2E5E0 closed its connection.
+mosquitto-1  | 1713414745: New connection from 172.18.0.1:59430 on port 8883.
+mosquitto-1  | 1713414745: New client connected from 172.18.0.1:59430 as auto-5FF5A535-CADE-2A9E-1959-3268E79AD527 (p2, c1, k60, u'admin').
+mosquitto-1  | 1713414746: Client auto-5FF5A535-CADE-2A9E-1959-3268E79AD527 closed its connection.
+mosquitto-1  | 1713414771: New connection from 172.18.0.1:35292 on port 8883.
+mosquitto-1  | 1713414771: New client connected from 172.18.0.1:35292 as auto-47B6DC46-7232-91BC-66DD-0982735F3A51 (p2, c1, k60, u'admin').
+mosquitto-1  | 1713414983: Saving in-memory database to /var/lib/mosquitto/mosquitto.db.
 
 ```
 
