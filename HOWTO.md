@@ -99,7 +99,6 @@ markn@markn-Lenovo-G50-45:~/devel/TIEDIE/tiedie/gateway$ sudo docker compose up 
 [sudo] password for markn: 
 
 WARN[0000] /home/markn/devel/TIEDIE/tiedie/gateway/docker-compose.yml: `version` is obsolete 
-WARN[0000] /home/markn/devel/TIEDIE/tiedie/gateway/docker-compose.yml: `version` is obsolete 
 [+] Running 2/0
  ✔ Container gateway-postgres-1   Running                                                                                           0.0s 
  ✔ Container gateway-mosquitto-1  Running                                                                                           0.0s 
