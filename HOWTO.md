@@ -66,7 +66,10 @@ Register with Silabs and download the bluetooth simulator.
 
 The purpose is to use Silabs to simulate device `/dev/ttyACM0`
 
-**(I haven't done this part)**
+**I found nothing useful on Silabs!!!**
+
+**Possibly a better reference**: https://www.baeldung.com/linux/make-virtual-serial-port
+
 
 ## Regroup for A different tack
 
