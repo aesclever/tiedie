@@ -71,7 +71,7 @@ The purpose is to use Silabs to simulate device `/dev/ttyACM0`
 **Possibly a better reference**: https://www.baeldung.com/linux/make-virtual-serial-port
 
 
-## Regroup for A different tack
+## Regroup for A Different Tack
 
 1.  Look at the Dockerfile and DockerCompose.yaml files and figure out how to build individual docker images.
 
@@ -147,9 +147,11 @@ app.py: error: No serial device found. Please specify connection explicitly.
 ```
 
 
+### Continue testing with mock device by referencing a MAC address
 
 **Connect to a mocked device via MAC address**:
-1.  Maintain two consoles:
+
+> Maintain two consoles:
 
 - Console#1 `docker compose up mosquito postgress`
 
