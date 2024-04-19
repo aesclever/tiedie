@@ -146,6 +146,52 @@ app.py: error: No serial device found. Please specify connection explicitly.
 2024-04-17 21:32:51,164: INFO - Press CTRL+C to quit
 ```
 
+
+
+**Connect to a mocked device via MAC address**:
+1.  Maintain two consoles:
+
+- Console#1 `docker compose up mosquito postgress`
+
+  **Output**:
+  ```
+  mosquitto-1  | 1713553431: New client connected from 172.18.0.1:36242 as auto-AC162F35-B40A-37FB-210D-6C782ED5EE77 (p2, c1, k60, u'admin').
+  mosquitto-1  | 1713553521: Client auto-AC162F35-B40A-37FB-210D-6C782ED5EE77 closed its connection.
+  mosquitto-1  | 1713553533: New connection from 172.18.0.1:56694 on port 8883.
+  mosquitto-1  | 1713553533: New client connected from 172.18.0.1:56694 as auto-80E91077-FF93-D542-A17B-06722AD8F995 (p2, c1, k60, u'admin').
+  mosquitto-1  | 1713553534: Client auto-80E91077-FF93-D542-A17B-06722AD8F995 closed its connection.
+  mosquitto-1  | 1713553617: New connection from 172.18.0.1:39752 on port 8883.
+  mosquitto-1  | 1713553617: New client connected from 172.18.0.1:39752 as auto-64AD2B76-4CE3-3385-34C0-51C7AFBB9E8E (p2, c1, k60, u'admin').
+  mosquitto-1  | 1713553619: Client auto-64AD2B76-4CE3-3385-34C0-51C7AFBB9E8E closed its connection.
+  mosquitto-1  | 1713553738: New connection from 172.18.0.1:38772 on port 8883.
+  mosquitto-1  | 1713553738: New client connected from 172.18.0.1:38772 as auto-6BF5A691-4402-6672-0C9D-12735ABF972D (p2, c1, k60, u'admin').
+  mosquitto-1  | 1713553739: Client auto-6BF5A691-4402-6672-0C9D-12735ABF972D closed its connection.
+  mosquitto-1  | 1713553763: New connection from 172.18.0.1:57042 on port 8883.
+  mosquitto-1  | 1713553763: New client connected from 172.18.0.1:57042 as auto-EC2768FF-1DC7-69B7-BB96-38753AC8D072 (p2, c1, k60, u'admin').
+
+  ```
+
+- Console#2
+  ```
+  ifconfig -a
+
+  python3 app.py -lINFO --device mock 02:42:fd:eb:17:2c
+  ```
+
+  **Output**:
+  ```
+  2024-04-19 12:09:23,428: INFO - System booted
+   * Serving Flask app 'app_factory'
+   * Debug mode: off
+  2024-04-19 12:09:23,508: INFO - WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+   * Running on all addresses (0.0.0.0)
+   * Running on https://127.0.0.1:8081
+   * Running on https://192.168.0.25:8081
+  2024-04-19 12:09:23,508: INFO - Press CTRL+C to quit
+  ```
+
+
+
 5.  Proceed to the SDK client to try step 'Connect device'. Section https://github.com/aesclever/tiedie/blob/main/gateway/README.md#generate-api-keys
 
 Or [connect with python sample app](https://github.com/aesclever/tiedie/blob/2bf9d358052f53834ea508c7993f3d00c3784c66/python-sdk/sample-python-app/README.md)
