@@ -97,6 +97,10 @@ Once you have all the necessary images, you can start the command `docker compos
 
 3. Bring up the mosquitto and postgres containers:
 
+> Maintain two consoles:
+
+- Console#1 `docker compose up mosquito postgress`
+
 ```
 markn@markn-Lenovo-G50-45:~/devel/TIEDIE/tiedie/gateway$ sudo docker compose up mosquitto postgres
 [sudo] password for markn: 
@@ -110,92 +114,91 @@ mosquitto-1  | 1713413182: Saving in-memory database to /var/lib/mosquitto/mosqu
 mosquitto-1  | 1713413989: Client auto-0434420C-9B9D-A19D-C283-2A4483B313FC closed its connection.
 mosquitto-1  | 1713414725: New connection from 172.18.0.1:40236 on port 8883.
 mosquitto-1  | 1713414725: New client connected from 172.18.0.1:40236 as auto-F99F8616-2138-F9AC-C399-C0CA51B2E5E0 (p2, c1, k60, u'admin').
-mosquitto-1  | 1713414726: Client auto-F99F8616-2138-F9AC-C399-C0CA51B2E5E0 closed its connection.
-mosquitto-1  | 1713414745: New connection from 172.18.0.1:59430 on port 8883.
-mosquitto-1  | 1713414745: New client connected from 172.18.0.1:59430 as auto-5FF5A535-CADE-2A9E-1959-3268E79AD527 (p2, c1, k60, u'admin').
-mosquitto-1  | 1713414746: Client auto-5FF5A535-CADE-2A9E-1959-3268E79AD527 closed its connection.
-mosquitto-1  | 1713414771: New connection from 172.18.0.1:35292 on port 8883.
-mosquitto-1  | 1713414771: New client connected from 172.18.0.1:35292 as auto-47B6DC46-7232-91BC-66DD-0982735F3A51 (p2, c1, k60, u'admin').
-mosquitto-1  | 1713414983: Saving in-memory database to /var/lib/mosquitto/mosquitto.db.
+
+...
+
+
+mosquitto-1  | 1713902838: Client auto-F3874432-BBDE-D909-4BDA-87F5EF0A707A closed its connection.
+mosquitto-1  | 1713902843: New connection from 172.18.0.1:34036 on port 8883.
+mosquitto-1  | 1713902843: New client connected from 172.18.0.1:34036 as auto-783EDEF3-474F-022E-2A60-5E1FB36F5CD4 (p2, c1, k60, u'admin').
+mosquitto-1  | 1713903213: Saving in-memory database to /var/lib/mosquitto/mosquitto.db.
+mosquitto-1  | 1713903615: Client auto-783EDEF3-474F-022E-2A60-5E1FB36F5CD4 closed its connection.
 
 ```
 
 4. Run the Python application:
 
-`python3 app.py --device mock`
-
-```
-venv) markn@markn-Lenovo-G50-45:~/devel/TIEDIE/tiedie/gateway$ python3 app.py --device /dev/ttyACM0
-usage: app.py [-h] [-c [CPC]] [--cpc_lib_path CPC_LIB_PATH] [--cpc_tracing] [-l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}]
-              [--robust] [--no_crc] [--device {silabs,mock}]
-              [conn]
-app.py: error: argument --device: invalid choice: '/dev/ttyACM0' (choose from 'silabs', 'mock')
-(venv) markn@markn-Lenovo-G50-45:~/devel/TIEDIE/tiedie/gateway$ python3 app.py --device silabs
-usage: app.py [-h] [-c [CPC]] [--cpc_lib_path CPC_LIB_PATH] [--cpc_tracing] [-l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}]
-              [--robust] [--no_crc] [--device {silabs,mock}]
-              [conn]
-app.py: error: No serial device found. Please specify connection explicitly.
-(venv) markn@markn-Lenovo-G50-45:~/devel/TIEDIE/tiedie/gateway$ python3 app.py --device mock
-2024-04-17 21:32:51,115: INFO - System booted
- * Serving Flask app 'app_factory'
- * Debug mode: off
-2024-04-17 21:32:51,164: INFO - WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
- * Running on all addresses (0.0.0.0)
- * Running on https://127.0.0.1:8081
- * Running on https://192.168.0.25:8081
-2024-04-17 21:32:51,164: INFO - Press CTRL+C to quit
-```
-
-
-### Continue testing with mock device by referencing a MAC address
-
-**Connect to a mocked device via MAC address**:
-
-> Maintain two consoles:
-
-- Console#1 `docker compose up mosquito postgress`
-
-  **Output**:
-  ```
-  mosquitto-1  | 1713553431: New client connected from 172.18.0.1:36242 as auto-AC162F35-B40A-37FB-210D-6C782ED5EE77 (p2, c1, k60, u'admin').
-  mosquitto-1  | 1713553521: Client auto-AC162F35-B40A-37FB-210D-6C782ED5EE77 closed its connection.
-  mosquitto-1  | 1713553533: New connection from 172.18.0.1:56694 on port 8883.
-  mosquitto-1  | 1713553533: New client connected from 172.18.0.1:56694 as auto-80E91077-FF93-D542-A17B-06722AD8F995 (p2, c1, k60, u'admin').
-  mosquitto-1  | 1713553534: Client auto-80E91077-FF93-D542-A17B-06722AD8F995 closed its connection.
-  mosquitto-1  | 1713553617: New connection from 172.18.0.1:39752 on port 8883.
-  mosquitto-1  | 1713553617: New client connected from 172.18.0.1:39752 as auto-64AD2B76-4CE3-3385-34C0-51C7AFBB9E8E (p2, c1, k60, u'admin').
-  mosquitto-1  | 1713553619: Client auto-64AD2B76-4CE3-3385-34C0-51C7AFBB9E8E closed its connection.
-  mosquitto-1  | 1713553738: New connection from 172.18.0.1:38772 on port 8883.
-  mosquitto-1  | 1713553738: New client connected from 172.18.0.1:38772 as auto-6BF5A691-4402-6672-0C9D-12735ABF972D (p2, c1, k60, u'admin').
-  mosquitto-1  | 1713553739: Client auto-6BF5A691-4402-6672-0C9D-12735ABF972D closed its connection.
-  mosquitto-1  | 1713553763: New connection from 172.18.0.1:57042 on port 8883.
-  mosquitto-1  | 1713553763: New client connected from 172.18.0.1:57042 as auto-EC2768FF-1DC7-69B7-BB96-38753AC8D072 (p2, c1, k60, u'admin').
-
-  ```
-
 - Console#2
   ```
   ifconfig -a
 
-  python3 app.py -lINFO --device mock 02:42:fd:eb:17:2c
+  python3 app.py -h
   ```
 
-  **Output**:
-  ```
-  2024-04-19 12:09:23,428: INFO - System booted
-   * Serving Flask app 'app_factory'
-   * Debug mode: off
-  2024-04-19 12:09:23,508: INFO - WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
-   * Running on all addresses (0.0.0.0)
-   * Running on https://127.0.0.1:8081
-   * Running on https://192.168.0.25:8081
-  2024-04-19 12:09:23,508: INFO - Press CTRL+C to quit
-  ```
+Python App syntax:
+```
+usage: app.py [-h] [-c [CPC]] [--cpc_lib_path CPC_LIB_PATH] [--cpc_tracing] [-l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}]
+              [--robust] [--no_crc] [--device {silabs,mock}]
+              [conn]
+
+positional arguments:
+  conn                  Serial or TCP connection parameter. See the examples for details. (default: None)
+
+options:
+  -h, --help            show this help message and exit
+  -c [CPC], --cpc [CPC]
+                        CPC instance (default: None)
+  --cpc_lib_path CPC_LIB_PATH
+                        CPC shared library path (default: /usr/local/lib/libcpc.so)
+  --cpc_tracing         Enable CPC tracing (default: False)
+  -l {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}, --log {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}
+                        Log level (default: INFO)
+  --robust              Enable robust communication (default: False)
+  --no_crc              Disable CRC checking for robust communication. Ignored if robust communication is disabled. (default: True)
+  --device {silabs,mock}
+                        Device (default: silabs)
+
+examples:
+  app.py                 Try to autodetect serial port
+  app.py COM4            Open serial port on Windows
+  app.py /dev/ttyACM0    Open serial port on POSIX
+  app.py 192.168.1.10    Open TCP port
+  app.py -c              Open default CPC daemon instance
+  app.py -c cpcd_1       Open CPC daemon instance
+```
+
+**The python client app**:
+
+- Modify file `app.py` to connect via IPv6 (AF_INET) address.
+
+```
+...
+
+    app.run(host="::", port=8081, ssl_context=context,
+            request_handler=PeerCertWSGIRequestHandler)
+
+...
+```
+
+**Connect to a mocked device via MAC address**:
+
+`python3 app.py -lINFO --robust  --device mock 02:42:fd:eb:17:2c`
+
+**Output**:
+
+```
+2024-04-23 13:07:23,564: INFO - System booted
+ * Serving Flask app 'app_factory'
+ * Debug mode: off
+2024-04-23 13:07:23,622: INFO - WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (::)
+ * Running on https://[::1]:8081
+ * Running on https://[2601:641:380:75e0::3]:8081
+2024-04-23 13:07:23,622: INFO - Press CTRL+C to quit
+
+```
 
 
-
-5.  Proceed to the SDK client to try step 'Connect device'. Section https://github.com/aesclever/tiedie/blob/main/gateway/README.md#generate-api-keys
-
-Or [connect with python sample app](https://github.com/aesclever/tiedie/blob/2bf9d358052f53834ea508c7993f3d00c3784c66/python-sdk/sample-python-app/README.md)
+**What's next?**
 
 Refer back to the workfow tracking to steps in tiedie/README.md
