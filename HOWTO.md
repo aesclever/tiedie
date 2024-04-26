@@ -28,6 +28,9 @@ sudo systemctl status docker
 sudo docker compose up --build
 ```
 
+
+
+
 ## Setting up the `tiedie` gateway
 
 1.  Clone the repo
@@ -37,7 +40,23 @@ https://github.com/aesclever/tiedie.git
 ```
 2.  Configure via instructions in [README](https://github.com/aesclever/tiedie/blob/main/gateway/README.md)
 
+### Prep Knowledge on How to start the Gateway
+
+**Note1**:  There is a hint in "On a linux host, *where usb passthrough is supported in docker*"
+
+You can use the --device flag that use can use to access USB devices without --privileged mode:
+
+`docker run -t -i --device=/dev/ttyUSB0 ubuntu bash`
+
+Alternatively, assuming your USB device is available with drivers working, etc. on the host in /dev/bus/usb, you can mount this in the container using privileged mode and the volumes option. For example:
+
+`docker run -t -i --privileged -v /dev/bus/usb:/dev/bus/usb ubuntu bash`
+
 3.  Run the docker compose command to start the tiedie gateway container
+
+*In `Docker-compose.yml` we can have volume: ' - /dev/bus/usb:/dev/bus/usb'*
+
+
 ```
 sudo docker compose up --build
 ```
@@ -102,27 +121,73 @@ Once you have all the necessary images, you can start the command `docker compos
 - Console#1 `docker compose up mosquito postgress`
 
 ```
-markn@markn-Lenovo-G50-45:~/devel/TIEDIE/tiedie/gateway$ sudo docker compose up mosquitto postgres
-[sudo] password for markn: 
-
-WARN[0000] /home/markn/devel/TIEDIE/tiedie/gateway/docker-compose.yml: `version` is obsolete 
-[+] Running 2/0
- ✔ Container gateway-postgres-1   Running                                                                                           0.0s 
- ✔ Container gateway-mosquitto-1  Running                                                                                           0.0s 
+markn@markn-Lenovo-G50-45:~/devel/TIEDIE/tiedie/gateway$ sudo docker compose -f docker-compose.debug.yml up mosquitto postgres
+WARN[0000] /home/markn/devel/TIEDIE/tiedie/gateway/docker-compose.debug.yml: `version` is obsolete 
+WARN[0000] Found orphan containers ([gateway-adminer-1]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up. 
+[+] Running 0/2
+ ⠦ Container gateway-mosquitto-1  Creat...                                 2.5s 
+ ⠦ Container gateway-postgres-1   Create...                                2.5s 
 Attaching to mosquitto-1, postgres-1
-mosquitto-1  | 1713413182: Saving in-memory database to /var/lib/mosquitto/mosquitto.db.
-mosquitto-1  | 1713413989: Client auto-0434420C-9B9D-A19D-C283-2A4483B313FC closed its connection.
-mosquitto-1  | 1713414725: New connection from 172.18.0.1:40236 on port 8883.
-mosquitto-1  | 1713414725: New client connected from 172.18.0.1:40236 as auto-F99F8616-2138-F9AC-C399-C0CA51B2E5E0 (p2, c1, k60, u'admin').
-
-...
-
-
-mosquitto-1  | 1713902838: Client auto-F3874432-BBDE-D909-4BDA-87F5EF0A707A closed its connection.
-mosquitto-1  | 1713902843: New connection from 172.18.0.1:34036 on port 8883.
-mosquitto-1  | 1713902843: New client connected from 172.18.0.1:34036 as auto-783EDEF3-474F-022E-2A60-5E1FB36F5CD4 (p2, c1, k60, u'admin').
-mosquitto-1  | 1713903213: Saving in-memory database to /var/lib/mosquitto/mosquitto.db.
-mosquitto-1  | 1713903615: Client auto-783EDEF3-474F-022E-2A60-5E1FB36F5CD4 closed its connection.
+postgres-1   | The files belonging to this database system will be owned by user "postgres".
+postgres-1   | This user must also own the server process.
+postgres-1   | 
+postgres-1   | The database cluster will be initialized with locale "en_US.utf8".
+postgres-1   | The default database encoding has accordingly been set to "UTF8".
+postgres-1   | The default text search configuration will be set to "english".
+postgres-1   | 
+postgres-1   | Data page checksums are disabled.
+postgres-1   | 
+postgres-1   | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+postgres-1   | creating subdirectories ... ok
+postgres-1   | selecting dynamic shared memory implementation ... posix
+mosquitto-1  | 1714125356: Error: Unable to open include_dir '/etc/mosquitto/conf.d'.
+mosquitto-1  | 1714125356: Error found at /mosquitto/config/mosquitto.conf:21.
+postgres-1   | selecting default max_connections ... 100
+postgres-1   | selecting default shared_buffers ... 128MB
+postgres-1   | selecting default time zone ... Etc/UTC
+postgres-1   | creating configuration files ... ok
+postgres-1   | running bootstrap script ... ok
+mosquitto-1 exited with code 3
+postgres-1   | performing post-bootstrap initialization ... ok
+postgres-1   | syncing data to disk ... ok
+postgres-1   | 
+postgres-1   | 
+postgres-1   | Success. You can now start the database server using:
+postgres-1   | 
+postgres-1   |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+postgres-1   | 
+postgres-1   | initdb: warning: enabling "trust" authentication for local connections
+postgres-1   | You can change this by editing pg_hba.conf or using the option -A, or
+postgres-1   | --auth-local and --auth-host, the next time you run initdb.
+postgres-1   | waiting for server to start....2024-04-26 09:56:01.527 UTC [46] LOG:  starting PostgreSQL 13.1 (Debian 13.1-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+postgres-1   | 2024-04-26 09:56:01.570 UTC [46] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres-1   | 2024-04-26 09:56:01.707 UTC [47] LOG:  database system was shut down at 2024-04-26 09:56:00 UTC
+postgres-1   | 2024-04-26 09:56:01.760 UTC [46] LOG:  database system is ready to accept connections
+postgres-1   |  done
+postgres-1   | server started
+postgres-1   | CREATE DATABASE
+postgres-1   | 
+postgres-1   | 
+postgres-1   | /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/init.sql
+postgres-1   | CREATE DATABASE
+postgres-1   | 
+postgres-1   | 
+postgres-1   | 2024-04-26 09:56:04.313 UTC [46] LOG:  received fast shutdown request
+postgres-1   | waiting for server to shut down....2024-04-26 09:56:04.353 UTC [46] LOG:  aborting any active transactions
+postgres-1   | 2024-04-26 09:56:04.359 UTC [46] LOG:  background worker "logical replication launcher" (PID 53) exited with exit code 1
+postgres-1   | 2024-04-26 09:56:04.362 UTC [48] LOG:  shutting down
+postgres-1   | 2024-04-26 09:56:04.598 UTC [46] LOG:  database system is shut down
+postgres-1   |  done
+postgres-1   | server stopped
+postgres-1   | 
+postgres-1   | PostgreSQL init process complete; ready for start up.
+postgres-1   | 
+postgres-1   | 2024-04-26 09:56:04.733 UTC [1] LOG:  starting PostgreSQL 13.1 (Debian 13.1-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+postgres-1   | 2024-04-26 09:56:04.734 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+postgres-1   | 2024-04-26 09:56:04.734 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+postgres-1   | 2024-04-26 09:56:04.801 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres-1   | 2024-04-26 09:56:04.881 UTC [83] LOG:  database system was shut down at 2024-04-26 09:56:04 UTC
+postgres-1   | 2024-04-26 09:56:04.945 UTC [1] LOG:  database system is ready to accept connections
 
 ```
 
