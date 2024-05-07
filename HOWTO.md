@@ -1,6 +1,38 @@
+
+# Reverse Proxy in the IoT Network
+In an IoT gateway network, a reverse proxy can be strategically placed to manage and optimize incoming and outgoing traffic between external clients and internal IoT devices or services. 
+
+**Here is a simplified diagram illustrating the placement of a reverse proxy**:
+
+            External Clients
+                 |
+                 |
+            [Reverse Proxy]
+                 |
+                 |    IoT Gateway Network
+                 |    +------------------+
+                 |    |     IoT Devices  |
+                 |    +------------------+
+                 |    |     Services     |
+                 |    +------------------+
+                 |
+           Internal IoT Devices
+
+By placing the reverse proxy in front of the IoT gateway network, you can centralize control over incoming and outgoing traffic, improve security by implementing access controls and filtering, enhance performance through caching and load balancing, and simplify management of IoT services and devices.
+
+**Where**:
+
+- **External Clients**: These could be users accessing IoT services or devices over the internet.
+
+- **Reverse Proxy**: Acts as a gateway between external clients and the internal IoT gateway network. It intercepts requests from clients and forwards them to the appropriate IoT devices or services within the network. It can also perform functions like load balancing, caching, SSL termination, and security filtering.
+
+- **IoT Gateway Network**: Represents the internal network where IoT devices and services reside. The reverse proxy serves as a protective barrier for this network, shielding internal resources from direct exposure to the internet and providing an additional layer of security.
+    
+
+
 # How to scalfold the tiedie gateway
 
-*By* **Mark Nguyen**
+
 
 The followings are based on forked git repo on https://github.com/aesclever/tiedie
 
